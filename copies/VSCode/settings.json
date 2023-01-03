@@ -1,0 +1,15 @@
+{
+    "editor.fontFamily": "Cascadia Mono, Consolas, 'Courier New', monospace",
+    "workbench.colorTheme": "Winter is Coming (Dark Blue)",
+    "editor.guides.bracketPairs": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "path": "pwsh"
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.fontFamily": "CaskaydiaCove NF Mono",
+    "powershell.powerShellDefaultVersion": "PowerShell (Store)",
+    "explorer.confirmDelete": false
+}

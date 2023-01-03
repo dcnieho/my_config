@@ -1,0 +1,191 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "console_title_template": "{{ if .Root }}(root) {{ end }}{{ .Shell }} @ {{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "os",
+          "background": "darkGray",
+          "foreground": "lightWhite",
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "properties": {
+            "alpine": "\uf300",
+            "arch": "\uf303",
+            "centos": "\uf304",
+            "debian": "\uf306",
+            "elementary": "\uf309",
+            "fedora": "\uf30a",
+            "gentoo": "\uf30d",
+            "linux": "\ue712",
+            "macos": "\ue711",
+            "manjaro": "\uf312",
+            "mint": "\uf30f",
+            "opensuse": "\uf314",
+            "raspbian": "\uf315",
+            "ubuntu": "\uf31c",
+            "windows": "\ue70f"
+          },
+          "template": " {{ .Icon }}{{ if .WSL }} on \ue70f {{ end }} "
+        },
+        {
+          "type": "session",
+          "background": "green",
+          "background_templates": [
+              "{{ if .Root }}lightRed{{ end }}"
+            ],
+          "foreground": "black",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "template": " {{ .UserName }} "
+        },
+        {
+          "type": "cmake",
+          "background": "cyan",
+          "foreground": "black",
+          "style": "powerline",
+          "powerline_symbol": "\uE0B0",
+          "template": " cmake {{ if .Full }}{{ .Major }}.{{ .Minor }} {{ end }}"
+        },
+        {
+          "type": "git",
+          "background": "yellow",
+          "foreground": "black",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "branch_icon": "\ue725",
+            "branch_ahead_icon": "<green>\u2191</>",
+            "branch_behind_icon": "<red>\u2193</>",
+            "fetch_upstream_icon": true
+          },
+          "template": " {{ .UpstreamIcon }}{{ url .RepoName .Kraken }} @ {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<green> \uf046 {{ .Staging.String }}</>{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Working.Changed }}<red> \uf044 {{ .Working.String }}</>{{ end }}{{ if gt .StashCount 0 }}<blue> (\uf692 {{ .StashCount }})</>{{ end }} "
+        },
+        {
+          "type": "python",
+          "background": "lightBlue",
+          "foreground": "yellow",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "display_mode": "context",
+            "display_default": true,
+            "fetch_virtual_env": true
+          },
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ else }}sys{{ end }} {{ .Full }}{{ end }}"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "exit",
+          "background": "lightGreen",
+          "background_templates": ["{{ if gt .Code 0 }}lightRed{{ end }}"],
+          "foreground": "darkGray",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "properties": {
+            "always_enabled": true
+          },
+          "template": "{{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }}{{ if (ne .Meaning (toString .Code)) }} {{ .Meaning }}{{ end }} "
+        },
+        {
+          "type": "executiontime",
+          "background": "darkGray",
+          "foreground": "lightWhite",
+          "style": "diamond",
+          "properties": {
+            "style": "roundrock",
+            "threshold": 0
+          },
+          "template": " \uf608 {{ .FormattedMs }} ",
+          "trailing_diamond": "\ue0b4"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "foreground": "white",
+          "style": "plain",
+          "template": "\u256d\u2500"
+        },
+        {
+          "type": "time",
+          "foreground": "white",
+          "style": "plain",
+          "properties": {
+            "time_format": "\uf64f 15:04:05 <cyan>|</> \uf5ef 2 Jan, Monday"
+          },
+          "template": "{{ .CurrentDate | date .Format }} <cyan>|</>"
+        },
+        {
+          "type": "path",
+          "foreground": "white",
+          "style": "diamond",
+          "properties": {
+            "style": "full",
+            "mapped_locations_enabled": false
+          },
+          "template": " {{ if not .Writable }}<red>\uf83d </>{{ end }}{{ .Path }} "
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "foreground": "white",
+          "style": "plain",
+          "template": "\u2570\u2500"
+        },
+        {
+          "type": "root",
+          "foreground": "red",
+          "style": "plain",
+          "template": "<f>\u26a1</f>"
+        },
+        {
+          "type": "exit",
+          "foreground": "white",
+          "foreground_templates": ["{{ if gt .Code 0 }}red{{ end }}"],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "{{ if not .Segments.Path.Writable }}<red>\uf83d</>{{ end }}\ue285\ufb00 "
+        }
+      ]
+    }
+  ],
+  "secondary_prompt": {
+    "foreground": "white",
+    "template": "\u2570\u2500{{ if .Root }}<red><f>\u26a1</f></>{{ end }}\ue285\ufb00 "
+  },
+  "transient_prompt": {
+    "template": "<{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }},transparent>\ue0b6</><darkGray,{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }}>{{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }}{{ if (ne .Segments.Exit.Meaning (toString .Code)) }} {{ .Segments.Exit.Meaning }}{{ end }} </><lightWhite,darkGray> \uf608 {{.Segments.Executiontime.FormattedMs}} </><darkGray,transparent>\ue0b4</>\n\u256d\u2500(\uf64f {{ .Segments.Time.CurrentDate | date \"15:04:05\" }}) {{ if not .Segments.Path.Writable }}<red>\uf83d </>{{ end }}{{ .Segments.Path.Location }}\n\u2570\u2500{{ if .Root }}<red>\u26a1</>{{ end }}\ue285\ufb00 "
+  },
+  // "valid_line": {
+  //   "foreground": "white",
+  //   "template": "\ue285\ufb00 "
+  // },
+  // "error_line": {
+  //   "foreground": "red",
+  //   "template": "\ue285\ufb00 "
+  // },
+  "osc99": true,
+  "version": 2
+}
