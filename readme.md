@@ -8,7 +8,7 @@
 5. on windows install nerd font https://www.nerdfonts.com/font-downloads, Caskaydia Cove. Install the non-mono (no ligatures) Windows compatible one: Caskaydia Cove Nerd Font Complete Windows Compatible Regular.otf
 6. on Linux/WSL, install oh my posh: `sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh` and `sudo chmod +x /usr/local/bin/oh-my-posh`
 7. https://github.com/Peltoche/lsd/releases/ get latest lsd_0.23.1_amd64.deb, install `cd /mnt/c/users/huml-dkn/Downloads` `sudo dpkg -i lsd_0.23.1_amd64.deb`
-8. to ~/.bashrc, add `configPath=$(wslpath -u $(wslvar USERPROFILE))/".config"/"oh-my-posh"/"thewickedd.omp.json"` and `eval "$(oh-my-posh init bash --config $configPath)"`. Also add `alias ls=lsd`
+8. to ~/.bashrc, add `configPath=$(wslpath -u $(wslvar USERPROFILE))/".config"/"oh-my-posh"/"thewickedd.omp.json"` and `eval "$(oh-my-posh init bash --config $configPath)"`. Also add `alias ls=lsd`. Save and close. Install https://github.com/akinomyoga/ble.sh/ using the quick install instructions. copy /copies/bash/.blerc to ~. ble.sh provides syntax highlighting and autocompletion, amongst other things.
 9. edit windows terminal settings, replace file with file in /copies/WindowsTerminal
 10. on windows, install oh my posh with winget: `winget install JanDeDobbeleer.OhMyPosh -s winget`
 11. make powershell $PROFILE, creating it if needed (`New-Item -ItemType File -Path $PROFILE -Force`). Put only one line in it: `. "$HOME\.config\powershell\profile.ps1"`. Also make a file `Microsoft.VSCode_profile.ps1` next to it, and put in it the line `. "$(Split-Path $profile -Parent)\Microsoft.PowerShell_profile.ps1"`. Missing modules will be installed upon execution of the profile.
