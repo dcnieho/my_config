@@ -23,3 +23,5 @@ bindkey "^[" kill-whole-line
 
 configPath=$(wslpath -u $(wslvar USERPROFILE))/".config"/"oh-my-posh"/"thewickedd.omp.json"
 eval "$(oh-my-posh init zsh --config $configPath)"
+
+alias ls=lsd

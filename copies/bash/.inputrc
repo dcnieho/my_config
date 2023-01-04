@@ -1,0 +1,6 @@
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e": kill-whole-line
+
+set echo-control-characters off
+set completion-ignore-case on
