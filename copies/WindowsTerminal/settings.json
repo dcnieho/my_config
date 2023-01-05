@@ -20,6 +20,10 @@
             "keys": "ctrl+shift+f"
         },
         {
+            "command": "duplicateTab",
+            "keys": "ctrl+shift+t"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
@@ -33,12 +37,11 @@
             "keys": "ctrl+w"
         },
         {
-            "command": "newTab",
+            "command": 
+            {
+                "action": "newTab"
+            },
             "keys": "ctrl+t"
-        },
-        {
-            "command": "duplicateTab",
-            "keys": "ctrl+shift+t"
         },
         {
             "command":
