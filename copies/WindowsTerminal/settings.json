@@ -56,6 +56,7 @@
     {
         "defaults": 
         {
+            "colorScheme": "Winter is Coming",
             "font": 
             {
                 "face": "CaskaydiaCove NF Mono"
