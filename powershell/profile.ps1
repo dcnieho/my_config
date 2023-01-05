@@ -28,7 +28,7 @@ function InstallModuleIfNeeded([string[]]$module) {
 ImportOrInstallModule 'CompletionPredictor'
 ImportOrInstallModule 'Terminal-Icons'
 ImportOrInstallModule 'posh-git'
-InstallModuleIfNeeded 'Microsoft.PowerShell.ConsoleGuiTools'
+#InstallModuleIfNeeded 'Microsoft.PowerShell.ConsoleGuiTools'
 
 
 # Set up prompt with oh my posh
