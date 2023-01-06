@@ -9,10 +9,11 @@
 ## windows
 1. on windows install nerd font https://www.nerdfonts.com/font-downloads, Caskaydia Cove. Install the non-mono (no ligatures) Windows compatible one: `Caskaydia Cove Nerd Font Complete Windows Compatible Regular.otf`
 2. on windows, install oh my posh with winget: `winget install JanDeDobbeleer.OhMyPosh -s winget`
-3. make powershell $PROFILE, creating it if needed (`New-Item -ItemType File -Path $PROFILE -Force`). Put only one line in it: `. "$HOME\.config\powershell\profile.ps1"`. Also make a file `Microsoft.VSCode_profile.ps1` next to it, and put in it the line `. "$(Split-Path $profile -Parent)\Microsoft.PowerShell_profile.ps1"`. Missing modules will be installed upon execution of the profile.
-4. install cling, during setup select to have it autostart
-5. add the file in /copies/cling to its scripts directory (See `cling info` for where that is)
-6. after vscode install: install the extensions listed in /copies/VSCode/extension_list.txt, and use settings.json as our settings
+3. make powershell $PROFILE, creating it if needed (`New-Item -ItemType File -Path $PROFILE -Force`). Put only one line in it: `. "$HOME\.config\powershell\profile.ps1"`. Also make a file `Microsoft.VSCode_profile.ps1` next to it, and put in it the line `. "$(Split-Path $profile -Parent)\Microsoft.PowerShell_profile.ps1"`.
+4. Install Microsoft.PowerShell.ConsoleGuiTools: `Install-Module -Name Microsoft.PowerShell.ConsoleGuiTools -Scope CurrentUser -SkipPublisherCheck -Force`. Other missing modules will be installed upon execution of the profile.
+5. install cling, during setup select to have it autostart
+6. add the file in /copies/cling to its scripts directory (See `cling info` for where that is)
+7. after vscode install: install the extensions listed in /copies/VSCode/extension_list.txt, and use settings.json as our settings
 
 ## Ubuntu (WSL)
 1. install ubuntu (no version, thats the latest) from windows store. Follow https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support.

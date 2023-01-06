@@ -17,18 +17,11 @@ function ImportOrInstallModule([string[]]$module) {
 	Install-Module -Name $module -Scope CurrentUser -Repository PSGallery -Force &&
 	Import-Module -Global $module
 }
-function InstallModuleIfNeeded([string[]]$module) {
-    $e = Get-InstalledModule $module -ErrorAction SilentlyContinue
-    if (-not $e) {
-	    Install-Module -Name $module -Scope CurrentUser -SkipPublisherCheck -Force
-    }
-}
 
 ## install requirements and import them:
 ImportOrInstallModule 'CompletionPredictor'
 ImportOrInstallModule 'Terminal-Icons'
 ImportOrInstallModule 'posh-git'
-#InstallModuleIfNeeded 'Microsoft.PowerShell.ConsoleGuiTools'
 
 
 # Set up prompt with oh my posh
