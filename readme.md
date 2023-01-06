@@ -24,6 +24,7 @@
 6. execute `sudo apt install exa`
 7. `sudo apt-get install zsh` and `sudo chsh -s $(which zsh)`. If that doesn't work, do `sudo usermod -s /bin/zsh hunl-dkn`.
 8. `cp $(wslpath -u $(wslvar USERPROFILE))/.config/copies/zsh/.zshrc ~/.zshrc` and `cp $(wslpath -u $(wslvar USERPROFILE))/.config/copies/zsh/dircolors ~/.zsh/dircolors`
+9. There are a bunch of packages to install for zsh, see top of the .zshrc file for instructions.
 
 ## once done
 1. edit windows terminal settings, merge file with file in /copies/WindowsTerminal (in case some edit registrations changed)
