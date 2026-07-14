@@ -1,5 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "secondary_prompt": {
+    "template": "╰─{{ if .Root }}<red><f>⚡</f></>{{ end }}❯ ",
+    "foreground": "white"
+  },
+  "transient_prompt": {
+    "template": "<{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }},transparent></><darkGray,{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }}>{{ if gt .Code 0 }}{{ else }}{{ end }}{{ if (ne .Segments.Exit.Meaning (toString .Code)) }} {{ .Segments.Exit.Meaning }}{{ end }} </><lightWhite,darkGray>  {{.Segments.Executiontime.FormattedMs}} </><darkGray,transparent></>\n╭─( {{ .Segments.Time.CurrentDate | date \"15:04:05\" }}) {{ if not .Segments.Path.Writable }}<red> </>{{ end }}{{ .Segments.Path.Location }}\n╰─{{ if .Root }}<red>⚡</>{{ end }}❯ "
+  },
   "console_title_template": "{{ if .Root }}(root) {{ end }}{{ .Shell }} @ {{ .Folder }}",
   "blocks": [
     {
@@ -7,75 +14,84 @@
       "alignment": "left",
       "segments": [
         {
-          "type": "os",
-          "background": "darkGray",
-          "foreground": "lightWhite",
-          "style": "diamond",
-          "leading_diamond": "\ue0b2",
           "properties": {
-            "alpine": "\uf300",
-            "arch": "\uf303",
-            "centos": "\uf304",
-            "debian": "\uf306",
-            "elementary": "\uf309",
-            "fedora": "\uf30a",
-            "gentoo": "\uf30d",
-            "linux": "\ue712",
-            "macos": "\ue711",
-            "manjaro": "\uf312",
-            "mint": "\uf30f",
-            "opensuse": "\uf314",
-            "raspbian": "\uf315",
-            "ubuntu": "\uf31c",
-            "windows": "\ue70f"
+            "alpine": "",
+            "arch": "",
+            "cache_duration": "none",
+            "centos": "",
+            "debian": "",
+            "elementary": "",
+            "fedora": "",
+            "gentoo": "",
+            "linux": "",
+            "macos": "",
+            "manjaro": "",
+            "mint": "",
+            "opensuse": "",
+            "raspbian": "",
+            "ubuntu": "",
+            "windows": ""
           },
-          "template": " {{ .Icon }}{{ if .WSL }} on \ue70f {{ end }} "
+          "leading_diamond": "",
+          "template": " {{ .Icon }}{{ if .WSL }} on  {{ end }} ",
+          "foreground": "lightWhite",
+          "background": "darkGray",
+          "type": "os",
+          "style": "diamond"
         },
         {
-          "type": "session",
-          "background": "green",
-          "background_templates": [
-              "{{ if .Root }}lightRed{{ end }}"
-            ],
-          "foreground": "black",
-          "style": "powerline",
-          "powerline_symbol": "\ue0b0",
-          "template": " {{ .UserName }} "
-        },
-        {
-          "type": "cmake",
-          "background": "cyan",
-          "foreground": "black",
-          "style": "powerline",
-          "powerline_symbol": "\uE0B0",
-          "template": " cmake {{ if .Full }}{{ .Major }}.{{ .Minor }} {{ end }}"
-        },
-        {
-          "type": "git",
-          "background": "yellow",
-          "foreground": "black",
-          "style": "powerline",
-          "powerline_symbol": "\ue0b0",
           "properties": {
-            "branch_icon": "\ue725",
-            "branch_ahead_icon": "<green>\u2191</>",
-            "branch_behind_icon": "<red>\u2193</>",
+            "cache_duration": "none"
+          },
+          "template": " {{ .UserName }} ",
+          "foreground": "black",
+          "powerline_symbol": "",
+          "background": "green",
+          "type": "session",
+          "style": "powerline",
+          "background_templates": [
+            "{{ if .Root }}lightRed{{ end }}"
+          ]
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " cmake {{ if .Full }}{{ .Major }}.{{ .Minor }} {{ end }}",
+          "foreground": "black",
+          "powerline_symbol": "",
+          "background": "cyan",
+          "type": "cmake",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "branch_ahead_icon": "<green>↑</>",
+            "branch_behind_icon": "<red>↓</>",
+            "branch_icon": "",
+            "cache_duration": "none",
             "fetch_upstream_icon": true
           },
-          "template": " {{ .UpstreamIcon }}{{ url .RepoName .Kraken }} @ {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<green> \uf046 {{ .Staging.String }}</>{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Working.Changed }}<red> \uf044 {{ .Working.String }}</>{{ end }}{{ if gt .StashCount 0 }}<blue> (\uf692 {{ .StashCount }})</>{{ end }} "
+          "template": " {{ .UpstreamIcon }}{{ url .RepoName .Kraken }} @ {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<green>  {{ .Staging.String }}</>{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Working.Changed }}<red>  {{ .Working.String }}</>{{ end }}{{ if gt .StashCount 0 }}<blue> ( {{ .StashCount }})</>{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "",
+          "background": "yellow",
+          "type": "git",
+          "style": "powerline"
         },
         {
-          "type": "python",
-          "background": "lightBlue",
-          "foreground": "yellow",
-          "style": "powerline",
-          "powerline_symbol": "\ue0b0",
           "properties": {
-            "display_mode": "context",
+            "cache_duration": "none",
             "display_default": true,
+            "display_mode": "context",
             "fetch_virtual_env": true
           },
-          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ else }}sys{{ end }} {{ .Full }}{{ end }}"
+          "template": "  {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }}{{ else }}sys{{ end }} {{ .Full }}{{ end }}",
+          "foreground": "yellow",
+          "powerline_symbol": "",
+          "background": "lightBlue",
+          "type": "python",
+          "style": "powerline"
         }
       ]
     },
@@ -84,108 +100,110 @@
       "alignment": "right",
       "segments": [
         {
-          "type": "exit",
-          "background": "lightGreen",
-          "background_templates": ["{{ if gt .Code 0 }}lightRed{{ end }}"],
-          "foreground": "darkGray",
-          "style": "diamond",
-          "leading_diamond": "\ue0b6",
           "properties": {
-            "always_enabled": true
+            "always_enabled": true,
+            "cache_duration": "none"
           },
-          "template": "{{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }}{{ if (ne .Meaning (toString .Code)) }} {{ .Meaning }}{{ end }} "
+          "leading_diamond": "",
+          "template": "{{ if gt .Code 0 }}{{ else }}{{ end }}{{ if (ne .Meaning (toString .Code)) }} {{ .Meaning }}{{ end }} ",
+          "foreground": "darkGray",
+          "background": "lightGreen",
+          "type": "exit",
+          "style": "diamond",
+          "background_templates": [
+            "{{ if gt .Code 0 }}lightRed{{ end }}"
+          ]
         },
         {
-          "type": "executiontime",
-          "background": "darkGray",
-          "foreground": "lightWhite",
-          "style": "diamond",
           "properties": {
+            "cache_duration": "none",
             "style": "roundrock",
             "threshold": 0
           },
-          "template": " \uf608 {{ .FormattedMs }} ",
-          "trailing_diamond": "\ue0b4"
+          "trailing_diamond": "",
+          "template": "  {{ .FormattedMs }} ",
+          "foreground": "lightWhite",
+          "background": "darkGray",
+          "type": "executiontime",
+          "style": "diamond"
         }
       ]
     },
     {
       "type": "prompt",
       "alignment": "left",
-      "newline": true,
       "segments": [
         {
-          "type": "text",
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "╭─",
           "foreground": "white",
-          "style": "plain",
-          "template": "\u256d\u2500"
+          "type": "text",
+          "style": "plain"
         },
         {
+          "properties": {
+            "cache_duration": "none",
+            "time_format": " 15:04:05 <cyan>|</>  2 Jan, Monday"
+          },
+          "template": "{{ .CurrentDate | date .Format }} <cyan>|</>",
+          "foreground": "white",
           "type": "time",
-          "foreground": "white",
-          "style": "plain",
-          "properties": {
-            "time_format": "\uf64f 15:04:05 <cyan>|</> \uf5ef 2 Jan, Monday"
-          },
-          "template": "{{ .CurrentDate | date .Format }} <cyan>|</>"
+          "style": "plain"
         },
         {
-          "type": "path",
-          "foreground": "white",
-          "style": "diamond",
           "properties": {
-            "style": "full",
-            "mapped_locations_enabled": false
+            "cache_duration": "none",
+            "mapped_locations_enabled": false,
+            "style": "full"
           },
-          "template": " {{ if not .Writable }}<red>\uf83d </>{{ end }}{{ .Path }} "
+          "template": " {{ if not .Writable }}<red> </>{{ end }}{{ .Path }} ",
+          "foreground": "white",
+          "type": "path",
+          "style": "diamond"
         }
-      ]
+      ],
+      "newline": true
     },
     {
       "type": "prompt",
       "alignment": "left",
-      "newline": true,
       "segments": [
         {
-          "type": "text",
-          "foreground": "white",
-          "style": "plain",
-          "template": "\u2570\u2500"
-        },
-        {
-          "type": "root",
-          "foreground": "red",
-          "style": "plain",
-          "template": "<f>\u26a1</f>"
-        },
-        {
-          "type": "exit",
-          "foreground": "white",
-          "foreground_templates": ["{{ if gt .Code 0 }}red{{ end }}"],
           "properties": {
-            "always_enabled": true
+            "cache_duration": "none"
           },
+          "template": "╰─",
+          "foreground": "white",
+          "type": "text",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "<f>⚡</f>",
+          "foreground": "red",
+          "type": "root",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "always_enabled": true,
+            "cache_duration": "none"
+          },
+          "template": "{{ if not .Segments.Path.Writable }}<red></>{{ end }}❯ ",
+          "foreground": "white",
+          "type": "exit",
           "style": "plain",
-          "template": "{{ if not .Segments.Path.Writable }}<red>\uf83d</>{{ end }}\ue285\ufb00 "
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}red{{ end }}"
+          ]
         }
-      ]
+      ],
+      "newline": true
     }
   ],
-  "secondary_prompt": {
-    "foreground": "white",
-    "template": "\u2570\u2500{{ if .Root }}<red><f>\u26a1</f></>{{ end }}\ue285\ufb00 "
-  },
-  "transient_prompt": {
-    "template": "<{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }},transparent>\ue0b6</><darkGray,{{ if gt .Code 0 }}lightRed{{else}}lightGreen{{ end }}>{{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }}{{ if (ne .Segments.Exit.Meaning (toString .Code)) }} {{ .Segments.Exit.Meaning }}{{ end }} </><lightWhite,darkGray> \uf608 {{.Segments.Executiontime.FormattedMs}} </><darkGray,transparent>\ue0b4</>\n\u256d\u2500(\uf64f {{ .Segments.Time.CurrentDate | date \"15:04:05\" }}) {{ if not .Segments.Path.Writable }}<red>\uf83d </>{{ end }}{{ .Segments.Path.Location }}\n\u2570\u2500{{ if .Root }}<red>\u26a1</>{{ end }}\ue285\ufb00 "
-  },
-  // "valid_line": {
-  //   "foreground": "white",
-  //   "template": "\ue285\ufb00 "
-  // },
-  // "error_line": {
-  //   "foreground": "red",
-  //   "template": "\ue285\ufb00 "
-  // },
-  "osc99": true,
-  "version": 2
+  "version": 3
 }
