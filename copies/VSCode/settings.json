@@ -22,7 +22,6 @@
     },
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.fontFamily": "CaskaydiaMono Nerd Font Mono",
-    "powershell.powerShellDefaultVersion": "PowerShell (Store)",
     "explorer.confirmDelete": false,
     "[python]": {
         "editor.formatOnType": true,
