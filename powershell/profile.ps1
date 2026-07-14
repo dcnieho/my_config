@@ -4,24 +4,40 @@ using namespace System.Management.Automation.Language
 if ($host.Name -eq 'ConsoleHost')
 {
     Import-Module PSReadLine
+
+    Set-PSReadLineOption -EditMode Windows
+    Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+    Set-PSReadLineOption -PredictionViewStyle InlineView    # press F2 to bring up menu
 }
-
-Set-PSReadLineOption -EditMode Windows
-Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-Set-PSReadLineOption -PredictionViewStyle InlineView    # press F2 to bring up menu
-
 
 # installs module if import fails
-function ImportOrInstallModule([string[]]$module) {
-	Import-Module -Global $module -ErrorAction SilentlyContinue ||
-	Install-Module -Name $module -Scope CurrentUser -Repository PSGallery -Force &&
-	Import-Module -Global $module
+function Import-OrInstallModule {
+    param(
+        [Parameter(Mandatory)]
+        [string[]] $Name
+    )
+
+    foreach ($moduleName in $Name) {
+        if (-not (Get-Module -ListAvailable -Name $moduleName)) {
+            Write-Host "Installing PowerShell module '$moduleName'..."
+            Install-Module `
+                -Name $moduleName `
+                -Scope CurrentUser `
+                -Repository PSGallery `
+                -Force `
+                -ErrorAction Stop
+        }
+
+        Import-Module -Name $moduleName -ErrorAction Stop
+    }
 }
 
-## install requirements and import them:
-ImportOrInstallModule 'CompletionPredictor'
-ImportOrInstallModule 'Terminal-Icons'
-ImportOrInstallModule 'posh-git'
+## install requirements (if needed) and import them:
+Import-OrInstallModule @(
+    'CompletionPredictor'
+    'Terminal-Icons'
+    'posh-git'
+)
 
 
 # Set up prompt with oh my posh
@@ -54,6 +70,8 @@ function which($c) {
     }
 }
 
+if ($host.Name -eq 'ConsoleHost')
+{
 # ---
 # Searching for commands with up/down arrow is really handy.  The
 # option "moves to end" is useful if you want the cursor at the end
@@ -137,7 +155,7 @@ $parameters = @{
 }
 Set-PSReadLineKeyHandler @parameters
 
-# When Shift-F7 is pressed, show the local command line history in OCGV
+# When Shift-F7 is pressed, show the global command line history in OCGV
 $parameters = @{
     Key = 'Shift-F7'
     BriefDescription = 'Show Matching Global History'
@@ -156,6 +174,32 @@ Set-PSReadlineKeyHandler -Chord Alt+c `
     param($key, $arg)
 
     Set-Clipboard $pwd.Path
+}
+
+# if there is a selection, attempt to start it (that will, for instance, open a directory or file with default explorer action)
+Set-PSReadlineKeyHandler -Chord Ctrl+Shift+r `
+                         -BriefDescription RunSelection `
+                         -LongDescription "Run (start) the current selection" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $selectionStart = $null
+    $selectionLength = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
+    if ($selectionStart -eq -1)
+    {
+        # no selection, nothing to do
+        return
+    }
+
+    # get selected text, with quotes
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    $selection = $line.SubString($selectionStart, $selectionLength)
+
+    # run
+    & ([scriptblock]::Create($selection))
 }
 
 
@@ -645,4 +689,5 @@ Set-PSReadLineKeyHandler -Key Alt+a `
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($nextAst.Extent.StartOffset + $startOffsetAdjustment)
     [Microsoft.PowerShell.PSConsoleReadLine]::SetMark($null, $null)
     [Microsoft.PowerShell.PSConsoleReadLine]::SelectForwardChar($null, ($nextAst.Extent.EndOffset - $nextAst.Extent.StartOffset) - $endOffsetAdjustment)
+}
 }
